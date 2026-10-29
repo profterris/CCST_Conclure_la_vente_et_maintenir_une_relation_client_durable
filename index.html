@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conclure la vente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+/* ── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Fiche d'exercices en thème clair : blocs = séances, cartes dépliables, corrections masquables */
+:root {
+  --bg:        #f4f6f9;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --border:    #dfe3ea;
+  --border-hi: #b9c0ce;
+  --text:      #1d2230;
+  --text-dim:  #5c6476;
+  --accent:    #b97d00;
+  --accent-bg: #fff6df;
+  --green:     #1b8047;
+  --green-bg:  #ecf7f0;
+  --green-bd:  #c9e6d4;
+  --green-dk:  #12552f;
+  --red:       #c23b3b;
+  --blue:      #2d69ad;
+  --blue-bg:   #edf3fb;
+  --purple:    #6f45ad;
+  --font-head: 'Syne', 'Trebuchet MS', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius:    10px;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ──────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, #ffffff 0%, #eef2f8 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 44px 20px 32px;
+  text-align: center;
+}
+.site-header .kicker {
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 3px;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 6vw, 38px);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.site-header .sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  max-width: 540px;
+  margin: 0 auto 20px;
+}
+.legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+
+/* ── NAV ANCRES ──────────────────────────────────────────── */
+.nav-anchors {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.nav-anchors a {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+.nav-anchors a:hover, .nav-anchors a:focus-visible { border-color: var(--accent); color: var(--accent); }
+
+/* ── CONTENEUR PRINCIPAL ─────────────────────────────────── */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 36px 18px 80px;
+}
+
+/* ── TITRE DE BLOC ───────────────────────────────────────── */
+.bloc-titre {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 52px 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.bloc-titre:first-child { margin-top: 0; }
+.bloc-titre .icone { font-size: 26px; flex-shrink: 0; }
+.bloc-titre h2 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.bloc-titre h2 small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* ── MÉMO ────────────────────────────────────────────────── */
+.memo {
+  background: var(--green-bg);
+  border: 1px solid var(--green-bd);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 16px 0 24px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.memo .memo-titre {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.memo code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--green-bd);
+  border-radius: 5px;
+  padding: 8px 12px;
+  color: var(--green-dk);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13.5px;
+  margin: 5px 0;
+}
+.memo .note { color: var(--text-dim); font-size: 13px; margin-top: 8px; }
+
+/* ── CARTE EXERCICE ──────────────────────────────────────── */
+.exo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: border-color .15s;
+}
+.exo-card:hover { border-color: var(--border-hi); }
+
+.exo-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.exo-header::-webkit-details-marker { display: none; }
+.exo-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.exo-num {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  min-width: 40px;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.badge-1 { background: #e9f6ee; color: var(--green); border: 1px solid #bfe2cc; }
+.badge-2 { background: var(--accent-bg); color: #8a5d00; border: 1px solid #efd798; }
+.badge-3 { background: #fbeaea; color: var(--red); border: 1px solid #efc4c4; }
+.badge-exam { background: #f2ecfa; color: var(--purple); border: 1px solid #d9c9ef; }
+
+.exo-titre-txt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.chevron { color: var(--text-dim); font-size: 13px; flex-shrink: 0; transition: transform .2s; }
+details[open] .chevron { transform: rotate(180deg); }
+
+/* ── CORPS DE L'EXERCICE ─────────────────────────────────── */
+.exo-body { padding: 0 16px 20px; border-top: 1px solid var(--border); }
+
+.contexte {
+  background: var(--blue-bg);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.contexte strong { color: var(--text); }
+
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+.tableau-donnees {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--surface);
+}
+.tableau-donnees th {
+  background: #eef1f6;
+  color: var(--text-dim);
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.tableau-donnees td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+.tableau-donnees tr:last-child td { border-bottom: none; }
+.tableau-donnees td.num { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+.questions { margin: 18px 0 0; }
+.question { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.question .q-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 11px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.question p { font-size: 14px; margin: 0; min-width: 0; }
+
+/* ── COUP DE POUCE ───────────────────────────────────────── */
+.ordre-grandeur {
+  background: var(--accent-bg);
+  border: 1px solid #efd798;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #6e4b00;
+  margin: 12px 0 0;
+}
+.ordre-grandeur::before { content: "💡 "; }
+
+/* ── BOUTON CORRECTION ───────────────────────────────────── */
+.btn-corrige {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  margin-top: 18px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-corrige:hover, .btn-corrige:focus-visible { border-color: var(--green); color: var(--green); }
+
+/* ── CORRECTION ──────────────────────────────────────────── */
+.correction {
+  display: none;
+  background: var(--green-bg);
+  border: 1px solid var(--green-bd);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.correction.visible { display: block; }
+.correction .corr-etape {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--green-bd);
+}
+.correction .corr-etape:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.correction .c-num {
+  display: inline-block;
+  background: var(--green);
+  color: #ffffff;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  margin-right: 6px;
+}
+.correction code {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--green-bd);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: var(--green-dk);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  margin: 5px 0;
+}
+.correction .res { font-family: var(--font-head); font-weight: 700; color: var(--text); }
+.correction .conclu { margin-top: 8px; font-size: 13.5px; color: #2c6244; font-style: italic; }
+.correction .tableau-corr { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0; background: #ffffff; }
+.correction .tableau-corr th {
+  background: #dff0e6;
+  color: var(--green-dk);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  text-align: left;
+}
+.correction .tableau-corr td { padding: 6px 10px; border-bottom: 1px solid var(--green-bd); color: #24402f; vertical-align: top; }
+.correction .tableau-corr td.val { font-weight: 700; color: var(--green); }
+
+/* ── SÉPARATEUR ──────────────────────────────────────────── */
+hr.section-sep { border: none; border-top: 1px solid var(--border); margin: 54px 0 0; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 12px;
+  background: var(--surface);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .exo-titre-txt { font-size: 13.5px; }
+  .contexte { font-size: 13.5px; }
+  .tableau-donnees { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="kicker">✍️ Bloc 1 – BTS CCST 2e année · épreuve E5</div>
+  <h1>Conclure la vente et maintenir<br>une relation client durable</h1>
+  <p class="sub">Chapitre 11. 36 exercices en 10 séances, avec l'entreprise THERMIX. Ouvre un exercice, réponds sur ton ordinateur, puis vérifie avec la correction.</p>
+  <div class="legende">
+    <span class="badge badge-1">⬆ décollage</span> je découvre
+    <span class="badge badge-2">◆ intermédiaire</span> j'applique
+    <span class="badge badge-exam">★ examen</span> je m'entraîne
+  </div>
+  <nav class="nav-anchors">
+    <a href="#referentiel">0 · Repères</a>
+    <a href="#conclure">1 · Signaux d'achat et conclusion</a>
+    <a href="#conge">2 · Ventes complémentaires et congé</a>
+    <a href="#commande">3 · Bon de commande et CGV</a>
+    <a href="#chiffrage">4 · Chiffrer la commande et la TVA</a>
+    <a href="#reglement">5 · Règlement et financement</a>
+    <a href="#bilan">6 · Lire le bilan du client</a>
+    <a href="#risque">7 · Mesurer et couvrir le risque client</a>
+    <a href="#suivi">8 · Facture et suivi de la relation</a>
+    <a href="#litiges">9 · Réclamations et litiges</a>
+    <a href="#examen">10 · Sujets type examen</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="bloc-titre" id="referentiel">
+  <span class="icone">📌</span>
+  <h2><small>Repères · référentiel BTS CCST</small>Ce que tu travailles dans ce chapitre</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 épreuve E5 – bloc 1</div>
+  <code>Compétences : C1.3 gérer le risque affaire et le risque client · C1.4 mettre en œuvre l'entretien de vente technico-commercial · C1.5 assurer le suivi d'une affaire.</code>
+  <code>Critères d'évaluation : le risque client/affaire est pris en compte · une démarche proactive de négociation est mise en œuvre · la prestation définie est formalisée conformément à l'accord · des actions de suivi sont effectuées.</code>
+  <code>Objectif final : conclure un entretien, formaliser l'accord (bon de commande, conditions de règlement), présenter à l'oral le risque client de ta situation et les actions de suivi prévues.</code>
+  <code>Fil rouge : THERMIX, PME rennaise de 28 salariés, conçoit, installe et entretient des pompes à chaleur (PAC), climatiseurs et ballons thermodynamiques pour les professionnels. Tu y es technico-commercial(e) en alternance. Ton tuteur : Antoine Leroy, directeur commercial. Service administration des ventes (ADV) : Julie Caron.</code>
+  <code>Clients : Hôtel Le Grand Large à Saint-Malo (Claire Moreau, directrice · Hugo Lambert, responsable technique) · Garage Duval Auto à Vitré (Karim Duval, gérant) · Clinique Saint-Roch à Rennes (Léa Fontaine, acheteuse · Paul Girard, responsable des services techniques).</code>
+</div>
+<hr class="section-sep">
+
+<!-- BLOC 1 -->
+<div class="bloc-titre" id="conclure">
+  <span class="icone">🎯</span>
+  <h2><small>Séance 1</small>Bloc 1 – Repérer le bon moment pour conclure</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Conclusion = accord entre le vendeur et l'acheteur, après l'argumentation et le traitement des objections, quand le client n'oppose plus de résistance.</code>
+  <code>Signal d'achat verbal = phrase ou question qui montre que le client a pris sa décision : confirmation directe, argumentation du client sur le produit, questions sur les conditions (livraison, SAV), projection en utilisateur.</code>
+  <code>Signal d'achat non verbal = attitude : visage détendu, bras et jambes décroisés, hochements de tête, le client manipule la documentation ou le produit.</code>
+  <code>Conclusion directe = proposer l'accord franchement · alternative = proposer deux solutions, les deux mènent à l'achat · implicite = agir comme si la décision était prise · en escalier = une série de questions qui obtiennent des « oui » jusqu'à la décision.</code>
+  <code>Conclure trop tôt = le client se sent poussé · conclure trop tard = il a le temps de douter. C'est le commercial qui prend l'initiative.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 1</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Signal d'achat ou pas ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Tu présentes à <strong>Claire Moreau</strong>, directrice de l'hôtel Le Grand Large, une solution de 2 PAC air/eau pour remplacer la vieille chaudière fioul. Voici ce qu'elle dit et fait pendant l'entretien. Défi : réponds en <strong>3 minutes</strong> chrono.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Ce que dit ou fait Claire Moreau</th></tr></thead><tbody><tr><td>1</td><td><em>« Et l'installation, vous pourriez la faire en novembre, quand l'hôtel est fermé ? »</em></td></tr><tr><td>2</td><td>Elle croise les bras et regarde sa montre.</td></tr><tr><td>3</td><td><em>« De toute façon, une PAC, c'est bruyant. »</em></td></tr><tr><td>4</td><td><em>« Avec ça, je pourrai enfin mettre "chauffage écologique" sur notre site de réservation. »</em></td></tr><tr><td>5</td><td>Elle hoche la tête et feuillette la fiche technique sur la tablette.</td></tr><tr><td>6</td><td><em>« En plus, si je comprends bien, je consomme moins et j'ai l'eau chaude des chambres. »</em></td></tr><tr><td>7</td><td><em>« Je dois en parler à mon banquier avant tout. »</em></td></tr><tr><td>8</td><td><em>« Le contrat d'entretien, c'est bien vous qui intervenez en cas de panne ? »</em></td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Classe chaque élément : signal d'achat verbal, signal d'achat non verbal ou pas un signal d'achat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pour chaque signal verbal, précise son type (confirmation, argumentation du client, conditions d'utilisation, projection en utilisateur).</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> une objection ou un report de décision n'est pas un signal d'achat.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>N°</th><th>Classement</th><th>Type</th></tr></thead><tbody><tr><td>1</td><td>verbal</td><td class="val">conditions (date d'installation)</td></tr><tr><td>2</td><td>pas un signal</td><td class="val">fermeture, impatience</td></tr><tr><td>3</td><td>pas un signal</td><td class="val">objection à traiter</td></tr><tr><td>4</td><td>verbal</td><td class="val">projection en utilisatrice</td></tr><tr><td>5</td><td>non verbal</td><td class="val">intérêt, accord</td></tr><tr><td>6</td><td>verbal</td><td class="val">argumentation de la cliente</td></tr><tr><td>7</td><td>pas un signal</td><td class="val">report de décision (frein financier)</td></tr><tr><td>8</td><td>verbal</td><td class="val">conditions (SAV)</td></tr></tbody></table></div></div>
+      <div class="corr-etape"><span class="c-num">2</span> <p class="conclu">Les éléments 2, 3 et 7 demandent de revenir à l'argumentation ou au traitement des objections avant de conclure.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 2</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Choisir la technique de conclusion</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Antoine Leroy, ton tuteur, a noté quatre phrases prononcées par des commerciaux de THERMIX en fin d'entretien.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Phrase</th><th>Contexte</th></tr></thead><tbody><tr><td>A. <em>« Je bloque donc l'équipe de pose pour la semaine du 3 novembre. »</em></td><td>Hôtel Le Grand Large</td></tr><tr><td>B. <em>« Vous préférez la PAC de 16 kW avec le ballon de 300 litres, ou la version 20 kW sans ballon ? »</em></td><td>Garage Duval Auto</td></tr><tr><td>C. <em>« Nous pouvons valider le bon de commande ensemble maintenant. »</em></td><td>Clinique Saint-Roch</td></tr><tr><td>D. <em>« Le niveau sonore vous convient ? La pose hors saison aussi ? Le contrat d'entretien inclus ? »</em></td><td>Hôtel Le Grand Large</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Nomme la technique de conclusion utilisée dans chaque phrase.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Rédige une phrase de conclusion alternative et une phrase implicite pour Karim Duval, qui hésite entre une installation en mai ou en juin.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quelle technique est la plus risquée face à un client méfiant ? Justifie.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> dans la technique alternative, les deux choix mènent à l'achat.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> A = implicite · B = alternative · C = directe · D = en escalier.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Alternative : <em>« Vous préférez que l'on installe en mai ou en juin ? »</em> · implicite : <em>« Je note l'installation pour la première semaine de mai, avant les grosses chaleurs dans l'atelier. »</em></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">La conclusion implicite.</p><p class="conclu">Le client méfiant peut se sentir forcé. Préfère l'alternative ou l'escalier, qui le laissent choisir tout en avançant vers l'accord.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 3</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Défi : conclure en 2 minutes</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Jeu de rôle en trio : un(e) commercial(e) THERMIX, Claire Moreau, un(e) observateur(trice) qui chronomètre. La scène commence après le traitement de la dernière objection. Claire Moreau doit glisser <strong>au moins deux signaux d'achat</strong> (un verbal, un non verbal). On tourne trois fois pour que chacun joue chaque rôle.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Commercial(e) : repère les signaux et conclus en 2 minutes au maximum, avec la technique de ton choix.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Observateur(trice) : note sur ton ordinateur les signaux émis, le moment de la conclusion (trop tôt, bon moment, trop tard) et la technique utilisée.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Refais l'exercice avec le client de ta fiche descriptive E5 : quelle technique choisirais-tu, et pourquoi ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Attendus : le commercial ne parle plus d'arguments une fois le signal émis · il conclut dans les 30 secondes qui suivent · la technique est adaptée au profil de la cliente (décideuse pressée : directe ou implicite).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Erreur fréquente : continuer à argumenter après un « oui » et faire naître une nouvelle objection.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Le choix de la technique de conclusion fait partie des outils de négociation à présenter dans ta stratégie (critère « une démarche proactive de négociation est mise en œuvre »).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 2 -->
+<div class="bloc-titre" id="conge" style="margin-top:40px">
+  <span class="icone">🤝</span>
+  <h2><small>Séance 2</small>Bloc 2 – Vendre plus et bien prendre congé</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Vente complémentaire = une fois l'accord obtenu sur la vente principale, proposer ce qui la complète : accessoire, extension de garantie, contrat de maintenance, formation des utilisateurs.</code>
+  <code>Règle : la vente complémentaire répond à un besoin découvert pendant l'entretien. Sinon, elle fragilise l'accord.</code>
+  <code>Prise de congé = remercier · récapituler l'accord et la suite (date de livraison, d'installation) · rappeler sa disponibilité · laisser ses coordonnées · saluer.</code>
+  <code>Vente réussie ou non, la prise de congé laisse une bonne impression : un refus aujourd'hui peut devenir une commande demain.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 4</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">La bonne vente complémentaire</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">THERMIX propose plusieurs services complémentaires. Chaque client vient de valider son achat principal.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Services THERMIX</th><th>Prix HT</th></tr></thead><tbody><tr><td>S1. Contrat de maintenance annuel (2 visites, dépannage sous 24 h)</td><td>480 € par an</td></tr><tr><td>S2. Extension de garantie à 5 ans par PAC</td><td>350 €</td></tr><tr><td>S3. Module de pilotage à distance sur smartphone</td><td>290 €</td></tr><tr><td>S4. Formation de 2 h du personnel technique</td><td>180 €</td></tr></tbody></table></div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Client</th><th>Achat validé</th><th>Information obtenue en découverte</th></tr></thead><tbody><tr><td>Hôtel Le Grand Large</td><td>2 PAC + ballon</td><td>Hugo Lambert gère seul la technique et veut <em>« comprendre le réglage »</em>.</td></tr><tr><td>Garage Duval Auto</td><td>1 PAC</td><td>Karim Duval est souvent en déplacement et veut couper le chauffage le week-end.</td></tr><tr><td>Clinique Saint-Roch</td><td>8 climatiseurs</td><td>Une panne en été est inacceptable (bloc opératoire, chambres).</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Associe à chaque client le service complémentaire le plus pertinent.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Rédige la phrase qui introduit cette vente complémentaire pour la clinique.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Hôtel → S4 formation · Garage → S3 pilotage à distance · Clinique → S1 contrat de maintenance (dépannage sous 24 h).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemple : <em>« Vous m'avez dit qu'une panne en été était impossible pour vous. Avec le contrat de maintenance, nous intervenons sous 24 h et nous faisons deux visites préventives par an. »</em></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Chaque vente complémentaire s'appuie sur une information de la découverte : c'est la preuve d'un conseil adapté (compétence C1.2).</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 5</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Réparer une prise de congé ratée</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Karim Duval vient de refuser l'offre de THERMIX : il veut <em>« attendre l'an prochain »</em>. Voici la fin de l'entretien menée par un stagiaire.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Qui</th><th>Réplique</th></tr></thead><tbody><tr><td>Stagiaire</td><td><em>« Bon, tant pis. C'est dommage, vous allez encore payer cher en chauffage. »</em></td></tr><tr><td>Karim Duval</td><td><em>« On verra bien. »</em></td></tr><tr><td>Stagiaire</td><td><em>« Je vous laisse, j'ai un autre rendez-vous. »</em> (il range ses affaires sans regarder le client)</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Relève trois erreurs du stagiaire.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Réécris la prise de congé en respectant les étapes du mémo.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quelle action de suivi prévois-tu après ce refus ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Reproche au client · aucun remerciement ni récapitulatif · départ précipité, pas de contact visuel, aucune carte de visite.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemple : <em>« Merci de m'avoir reçu, monsieur Duval. Je retiens que le projet est reporté à l'an prochain. Je vous laisse ma carte et la simulation d'économies. Je vous rappelle en septembre pour faire le point avant l'hiver. Bonne journée. »</em></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Noter le refus et la date de relance dans le CRM, puis rappeler en septembre.</p><p class="conclu">Un refus n'arrête pas l'affaire : il ouvre une action de suivi (critère « des actions de suivi sont effectuées »).</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 6</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Simulation : de la conclusion au départ</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Jeu de rôle en trio, <strong>4 minutes</strong> chrono. Léa Fontaine, acheteuse de la clinique Saint-Roch, est d'accord sur les 8 climatiseurs. Elle a dit pendant la découverte que <em>« le personnel ne sait jamais régler les appareils »</em>.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Commercial(e) : conclus la vente principale, propose une vente complémentaire liée à la découverte, puis prends congé.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Observateur(trice) : coche sur ton ordinateur les étapes réalisées (conclusion, vente complémentaire justifiée, remerciement, récapitulatif, disponibilité, salutation).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quelle vente complémentaire pourrais-tu proposer au client de ta fiche descriptive ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Vente complémentaire attendue : la formation du personnel (S4), justifiée par la phrase de la découverte.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Récapitulatif attendu : produits, date d'installation, prochaine étape (envoi du bon de commande par l'ADV).</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">À l'oral de la situation 2, la commission attend que tu saches conclure et proposer des actions après l'entretien (compétences C1.4 et C1.5).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 3 -->
+<div class="bloc-titre" id="commande" style="margin-top:40px">
+  <span class="icone">📝</span>
+  <h2><small>Séance 3</small>Bloc 3 – Formaliser l'accord : bon de commande et CGV</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Bon de commande = document qui valide les termes de la vente et évite les contestations. Il est signé par le vendeur et par le client.</code>
+  <code>Mentions : identité du vendeur (dénomination, adresse, SIREN, RCS, n° de TVA intracommunautaire) · identité du client (pour un professionnel : forme juridique, adresse, SIRET) · date et numéro · description de la commande (référence, désignation, quantité, prix unitaire HT, taux de TVA) · totaux HT, TVA, TTC · modalités de paiement (mode, délai, acompte) · modalités de livraison (date, franco ou frais de port) · signatures.</code>
+  <code>Conditions générales de vente (CGV) = règles juridiques de la vente : modalités de livraison · barème des prix unitaires · réductions (rabais, remises, ristournes) · conditions de règlement, taux des pénalités de retard et conditions d'application.</code>
+  <code>Les CGV doivent être communiquées à tout acheteur professionnel qui les demande.</code>
+  <code>Clause de réserve de propriété = le vendeur reste propriétaire du bien tant que le prix n'est pas entièrement payé.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 7</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Vrai ou faux : le bon de commande</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Julie Caron, de l'ADV, teste tes connaissances avant de te confier les bons de commande. Défi : <strong>8 réponses en 2 minutes</strong>.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Un accord oral suffit, le bon de commande n'est qu'une formalité.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Le bon de commande est signé par les deux parties.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Le prix unitaire est indiqué toutes taxes comprises.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Pour un client professionnel, on indique son numéro SIRET.</p></div>
+      <div class="question"><span class="q-num">5</span><p>La date de livraison n'a pas besoin d'y figurer.</p></div>
+      <div class="question"><span class="q-num">6</span><p>Le mode et le délai de paiement y sont précisés.</p></div>
+      <div class="question"><span class="q-num">7</span><p>Les CGV ne concernent que les clients particuliers.</p></div>
+      <div class="question"><span class="q-num">8</span><p>Avec une clause de réserve de propriété, THERMIX peut récupérer une PAC non payée.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Faux : le bon de commande sécurise l'accord et évite les contestations.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Vrai · 3. Faux : prix unitaire hors taxes · 4. Vrai · 5. Faux : les modalités de livraison sont obligatoires · 6. Vrai.</div>
+      <div class="corr-etape"><span class="c-num">3</span> 7. Faux : elles doivent être communiquées à tout acheteur professionnel qui les demande · 8. Vrai : THERMIX reste propriétaire jusqu'au paiement complet.</div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 8</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Trouve les 5 oublis du bon de commande</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Un collègue a préparé le bon de commande de l'hôtel Le Grand Large. Julie Caron le bloque : <em>« il manque des mentions »</em>.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Zone</th><th>Contenu du bon de commande</th></tr></thead><tbody><tr><td>Vendeur</td><td>THERMIX SAS, 12 rue des Forges, 35000 Rennes · SIREN 123 456 789 (fictif) · RCS Rennes</td></tr><tr><td>Client</td><td>Hôtel Le Grand Large, Saint-Malo</td></tr><tr><td>N° et date</td><td>BC 2026-118 du 6 octobre 2026</td></tr><tr><td>Commande</td><td>PAC16 · pompe à chaleur air/eau 16 kW · quantité 2 · total 13 600 €</td></tr><tr><td>Totaux</td><td>Total HT, TVA 20 %, total TTC</td></tr><tr><td>Paiement</td><td>Virement</td></tr><tr><td>Livraison</td><td>Non renseignée</td></tr><tr><td>Signatures</td><td>Signature du vendeur</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Repère les 5 oublis ou erreurs.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pour chacun, explique le risque de litige.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> compare zone par zone avec la liste des mentions du mémo.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>Oubli</th><th>Risque</th></tr></thead><tbody><tr><td>Client : forme juridique, adresse complète, SIRET absents</td><td class="val">facture mal adressée, client mal identifié</td></tr><tr><td>Prix unitaire HT absent (seul le total figure)</td><td class="val">contestation du prix</td></tr><tr><td>Délai de paiement absent</td><td class="val">conflit sur la date d'échéance</td></tr><tr><td>Date et conditions de livraison absentes</td><td class="val">litige de date, frais de port contestés</td></tr><tr><td>Signature du client absente</td><td class="val">aucune preuve de l'accord</td></tr></tbody></table></div></div>
+      <div class="corr-etape"><span class="c-num">2</span> <p class="conclu">Un bon de commande complet correspond au critère « la prestation définie est formalisée conformément à l'accord ».</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 9</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Lire les CGV de THERMIX</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Hugo Lambert, responsable technique de l'hôtel, te pose des questions sur les conditions de vente. Voici un extrait des CGV de THERMIX.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Article</th><th>Contenu</th></tr></thead><tbody><tr><td>Art. 3 – Livraison</td><td>Livraison et pose dans un délai de 4 à 6 semaines après la commande signée. Franco de port à partir de 5 000 € HT, sinon 250 € HT.</td></tr><tr><td>Art. 5 – Réductions</td><td>Remise de 5 % à partir de 20 000 € HT de commande. Escompte de 2 % pour paiement sous 8 jours.</td></tr><tr><td>Art. 6 – Paiement</td><td>Acompte de 30 % à la commande. Solde à 30 jours à compter de la date de facture.</td></tr><tr><td>Art. 7 – Retard</td><td>Pénalités de retard : 3 fois le taux d'intérêt légal. Indemnité forfaitaire de 40 € pour frais de recouvrement.</td></tr><tr><td>Art. 9 – Propriété</td><td>Les matériels restent la propriété de THERMIX jusqu'au paiement intégral.</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p><em>« Si on commande le 6 octobre, quand serez-vous là au plus tard ? »</em> Réponds.</p></div>
+      <div class="question"><span class="q-num">2</span><p>La commande de l'hôtel dépasse 30 000 € HT : a-t-il droit à la remise ? Paie-t-il le transport ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Explique simplement à Hugo Lambert l'article 9.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Le solde est payé avec 10 jours de retard. Que peut réclamer THERMIX ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> 6 semaines au maximum après le 6 octobre, soit le <strong>17 novembre 2026</strong> au plus tard.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Oui, remise de 5 % (commande supérieure à 20 000 € HT) · non, franco de port (commande supérieure à 5 000 € HT).</div>
+      <div class="corr-etape"><span class="c-num">3</span> Clause de réserve de propriété : tant que la facture n'est pas entièrement payée, les PAC appartiennent à THERMIX, qui peut les reprendre en cas d'impayé.</div>
+      <div class="corr-etape"><span class="c-num">4</span> <p class="res">Des pénalités de retard (3 fois le taux d'intérêt légal) et l'indemnité forfaitaire de 40 €.</p><p class="conclu">Connaître ses CGV permet de répondre sans hésiter en négociation et de défendre les conditions de l'entreprise.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 10</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Les documents contractuels de ta situation E5</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Dans les annexes de ta fiche descriptive, la commission attend des supports technico-commerciaux comme les tarifs et les conditions générales de vente.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Liste les documents qui formalisent une vente dans ton entreprise (devis, bon de commande, contrat, CGV…).</p></div>
+      <div class="question"><span class="q-num">2</span><p>Relève dans les CGV de ton entreprise : délai de livraison, conditions de paiement, réductions possibles.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Présente-les en 1 minute à ton binôme, qui chronomètre et te pose une question.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> si tu n'as pas les CGV, note dès aujourd'hui de les demander à ton tuteur.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Attendus : chaque document est nommé et son rôle expliqué (le devis propose, le bon de commande engage, la facture réclame le paiement).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Les conditions relevées servent à fixer tes objectifs de négociation : jusqu'où peux-tu aller sur la remise ou le délai ?</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Les CGV et les tarifs font partie des annexes attendues de la fiche descriptive E5.</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 4 -->
+<div class="bloc-titre" id="chiffrage" style="margin-top:40px">
+  <span class="icone">🧮</span>
+  <h2><small>Séance 4</small>Bloc 4 – Chiffrer la commande et appliquer la TVA</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Montant brut HT = quantité × prix unitaire HT.</code>
+  <code>Net commercial HT = montant brut HT – réductions commerciales (rabais, remises, ristournes).</code>
+  <code>Net financier = net commercial – escompte (réduction pour paiement rapide).</code>
+  <code>Net HT = net financier + frais de port.</code>
+  <code>Net à payer TTC = net HT + TVA.</code>
+  <code>Taux de TVA : normal 20 % (la majorité des biens et services) · intermédiaire 10 % (restauration, transports, produits alimentaires préparés) · réduit 5,5 % (produits alimentaires non préparés, boissons sans alcool, cantines scolaires…) · super réduit 2,1 % (publications de presse, médicaments remboursables).</code>
+  <code>TVA = HT × taux · TTC = HT × (1 + taux) · HT = TTC / (1 + taux). Exemple à 20 % : HT = TTC / 1,20.</code>
+  <code>L'entreprise collecte la TVA pour l'État : elle n'en est pas redevable.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 11</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Quel taux de TVA ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Julie Caron prépare les notes de frais et les factures de la semaine. Défi en binôme : le premier qui a 6 bonnes réponses gagne.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Opération</th></tr></thead><tbody><tr><td>1</td><td>Vente d'un climatiseur à la clinique Saint-Roch</td></tr><tr><td>2</td><td>Repas au restaurant avec Karim Duval</td></tr><tr><td>3</td><td>Billet de train Rennes – Saint-Malo</td></tr><tr><td>4</td><td>Contrat de maintenance pour l'hôtel</td></tr><tr><td>5</td><td>Fruits et eau minérale achetés pour le stand d'un salon</td></tr><tr><td>6</td><td>Abonnement de l'entreprise à un hebdomadaire de presse professionnelle</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Indique le taux de TVA de chaque opération.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> sans cas particulier listé dans le mémo, c'est le taux normal.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> 1 = 20 % · 2 = 10 % (restauration) · 3 = 10 % (transport) · 4 = 20 % (prestation de services).</div>
+      <div class="corr-etape"><span class="c-num">2</span> 5 = 5,5 % (produits alimentaires non préparés) · 6 = 2,1 % (publication de presse).</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Pour les produits de THERMIX vendus à des professionnels, le taux est 20 %.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 12</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Passer du HT au TTC et inversement</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Karim Duval compare les prix. Il raisonne en TTC, THERMIX affiche des prix HT. Tous les produits sont au taux de <strong>20 %</strong>.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>La PAC16 coûte 6 800 € HT. Calcule la TVA et le prix TTC.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Un concurrent affiche un climatiseur à 1 068 € TTC. Calcule son prix HT et compare-le au climatiseur THERMIX à 890 € HT.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Karim Duval dit : <em>« Retirer 20 % au TTC, c'est pareil que diviser par 1,20. »</em> Vérifie avec 1 068 € et explique.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>TVA = 6 800 × 0,20 = 1 360 €</code><code>TTC = 6 800 × 1,20 = 8 160 €</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>HT = 1 068 / 1,20 = 890 €</code> Même prix HT que THERMIX : la différence se fera sur le service.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <code>1 068 – 20 % = 854,40 € ≠ 890 €</code> <p class="res">C'est faux.</p><p class="conclu">La TVA est calculée sur le HT, pas sur le TTC : pour retrouver le HT, on divise le TTC par 1,20.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 13</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Chiffrer la commande de l'hôtel</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Claire Moreau a validé la commande ci-dessous. Conditions accordées : <strong>remise de 5 %</strong> sur le total brut, <strong>escompte de 2 %</strong> pour paiement sous 8 jours, <strong>frais de port de 250 € HT</strong> (exceptionnellement facturés pour une livraison express), <strong>TVA 20 %</strong>. Travaille sur un tableur si tu veux.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Référence</th><th>Désignation</th><th>Quantité</th><th>Prix unitaire HT</th></tr></thead><tbody><tr><td>PAC16</td><td>Pompe à chaleur air/eau 16 kW</td><td>2</td><td>6 800 €</td></tr><tr><td>BT300</td><td>Ballon thermodynamique 300 L</td><td>1</td><td>1 950 €</td></tr><tr><td>CLM25</td><td>Climatiseur mural 2,5 kW</td><td>12</td><td>890 €</td></tr><tr><td>INST</td><td>Forfait installation par PAC</td><td>2</td><td>2 400 €</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule le montant brut HT de chaque ligne et le total brut HT.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule le net commercial, le net financier, le net HT, la TVA et le net à payer TTC.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Combien l'hôtel économise-t-il grâce à l'escompte ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> respecte l'ordre du mémo. Le total brut est un peu au-dessus de 31 000 €.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>2 × 6 800 = 13 600 · 1 × 1 950 = 1 950 · 12 × 890 = 10 680 · 2 × 2 400 = 4 800</code><code>Total brut HT = 31 030,00 €</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>Étape</th><th>Calcul</th><th>Montant</th></tr></thead><tbody><tr><td>Remise 5 %</td><td>31 030 × 0,05</td><td class="val">1 551,50 €</td></tr><tr><td>Net commercial</td><td>31 030 – 1 551,50</td><td class="val">29 478,50 €</td></tr><tr><td>Escompte 2 %</td><td>29 478,50 × 0,02</td><td class="val">589,57 €</td></tr><tr><td>Net financier</td><td>29 478,50 – 589,57</td><td class="val">28 888,93 €</td></tr><tr><td>Net HT</td><td>28 888,93 + 250</td><td class="val">29 138,93 €</td></tr><tr><td>TVA 20 %</td><td>29 138,93 × 0,20</td><td class="val">5 827,79 €</td></tr><tr><td>Net à payer TTC</td><td>29 138,93 + 5 827,79</td><td class="val">34 966,72 €</td></tr></tbody></table></div></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">589,57 € HT d'économie grâce à l'escompte.</p><p class="conclu">Un chiffrage juste et rapide rassure le client : c'est un outil de négociation à part entière.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 14</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Défendre le prix face à Claire Moreau</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Au moment de signer, Claire Moreau demande <strong>10 % de remise</strong> au lieu de 5 %. Antoine Leroy t'autorise au maximum 7 %, et seulement contre une contrepartie.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule ce que coûterait à THERMIX une remise de 10 % au lieu de 5 % (sur le total brut de l'exercice précédent).</p></div>
+      <div class="question"><span class="q-num">2</span><p>Propose une contrepartie à demander à la cliente.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Jeu de rôle en binôme, 3 minutes chrono : défends ton prix et obtiens l'accord sans dépasser 7 %.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> ne cède jamais sans contrepartie, et rappelle d'abord la valeur de l'offre.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>5 % supplémentaires = 31 030 × 0,05 = 1 551,50 € HT de marge perdue</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemples : signature du contrat de maintenance (480 € par an), paiement comptant, accord pour un témoignage client sur le site de THERMIX.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Attendus : reformuler la demande, rappeler les bénéfices (économies d'énergie, dépannage, garantie), céder par petits paliers, conclure.</p><p class="conclu">Défendre la marge de son entreprise fait partie du risque affaire (compétence C1.3).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 5 -->
+<div class="bloc-titre" id="reglement" style="margin-top:40px">
+  <span class="icone">💳</span>
+  <h2><small>Séance 5</small>Bloc 5 – Négocier le règlement et le financement</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Règlement au comptant = le client paie tout dès la réception de la facture (espèces, chèque, carte bancaire, virement).</code>
+  <code>Règlement différé (crédit interentreprises) = le vendeur accorde un délai : c'est un argument commercial, mais il pèse sur sa trésorerie.</code>
+  <code>Délais légaux entre professionnels (Code de commerce) : sans mention au contrat, 30 jours après réception des marchandises ou exécution de la prestation · délai négocié au maximum 60 jours après la date d'émission de la facture, ou 45 jours fin de mois si c'est prévu au contrat.</code>
+  <code>Les délais de paiement figurent obligatoirement sur la facture et dans les CGV.</code>
+  <code>Location longue durée (LDD) = le client loue le bien de 12 à 72 mois et paie des loyers · le loueur reste propriétaire.</code>
+  <code>Location avec option d'achat (LOA, crédit-bail, leasing) = le client paie des loyers, puis peut acheter le bien à la fin pour une valeur résiduelle fixée dès la signature, ou le restituer.</code>
+  <code>Crédit = un organisme financier prête la somme · le client est propriétaire tout de suite et rembourse le capital + les intérêts selon un échéancier.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 15</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Comptant, différé, LDD, LOA ou crédit ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Antoine Leroy te lit des situations rencontrées chez THERMIX. Réponds à voix haute, le plus vite possible.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Situation</th></tr></thead><tbody><tr><td>1</td><td>La clinique paie la facture 45 jours fin de mois.</td></tr><tr><td>2</td><td>Le garage paie par virement le jour de la réception de la facture.</td></tr><tr><td>3</td><td>L'hôtel paie 48 loyers et pourra racheter les PAC 1 500 € à la fin.</td></tr><tr><td>4</td><td>Un client loue un climatiseur 36 mois puis le rend.</td></tr><tr><td>5</td><td>Un client emprunte 30 000 € à sa banque pour acheter les PAC.</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Nomme le mode de règlement ou de financement de chaque situation.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Dans quelles situations le client est-il propriétaire du matériel dès l'installation ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> 1 = règlement différé · 2 = comptant · 3 = LOA · 4 = LDD · 5 = crédit.</div>
+      <div class="corr-etape"><span class="c-num">2</span> <p class="res">Situations 1, 2 et 5 (sous réserve du paiement complet si une clause de réserve de propriété existe).</p><p class="conclu">En LOA, le client devient propriétaire seulement s'il lève l'option. En LDD, jamais.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 16</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Calculer les échéances légales</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">THERMIX émet une facture le <strong>15 mars 2026</strong> pour la clinique Saint-Roch. Karim Duval, de son côté, demande à payer sa PAC <strong>à 90 jours</strong>.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule la date limite de paiement avec un délai de 60 jours à compter de la date d'émission.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule la date limite avec un délai de 45 jours fin de mois (45 jours ajoutés à la fin du mois d'émission).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Peux-tu accepter la demande de Karim Duval ? Que lui réponds-tu ?</p></div>
+      <div class="question"><span class="q-num">4</span><p>Pourquoi THERMIX a-t-elle intérêt à limiter les délais accordés ?</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> mars compte 31 jours, avril 30 jours.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>15 mars + 60 jours = 14 mai 2026</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>Fin du mois d'émission = 31 mars · 31 mars + 45 jours = 15 mai 2026</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> Non : 90 jours dépasse le maximum légal. Réponse possible : <em>« La loi ne me permet pas d'aller au-delà de 60 jours. En revanche, je peux vous proposer un financement en LOA qui étale le coût sur plusieurs années. »</em></div>
+      <div class="corr-etape"><span class="c-num">4</span> <p class="res">Chaque jour de délai, THERMIX a payé ses fournisseurs et ses salariés sans être encaissée : sa trésorerie se dégrade.</p><p class="conclu">Le technico-commercial doit limiter les délais de règlement pour ne pas fragiliser la trésorerie (activité A1.5).</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 17</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Comparer trois solutions de financement</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">L'hôtel Le Grand Large veut financer <strong>30 000 € HT</strong> de matériel. THERMIX travaille avec un partenaire financier qui propose trois formules.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Formule</th><th>Conditions</th></tr></thead><tbody><tr><td>Crédit</td><td>60 mensualités de 566,14 € (taux de 5 % par an)</td></tr><tr><td>LOA</td><td>48 loyers de 690 €, puis option d'achat de 1 500 €</td></tr><tr><td>LDD</td><td>60 loyers de 620 €, maintenance incluse, matériel rendu à la fin</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule le coût total de chaque formule (option d'achat levée pour la LOA).</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule le coût du crédit (intérêts payés).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Donne un avantage et un inconvénient de chaque formule pour l'hôtel.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>Crédit = 60 × 566,14 = 33 968,40 €</code><code>LOA = 48 × 690 + 1 500 = 34 620,00 €</code><code>LDD = 60 × 620 = 37 200,00 €</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>Coût du crédit = 33 968,40 – 30 000 = 3 968,40 €</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>Formule</th><th>Avantage</th><th>Inconvénient</th></tr></thead><tbody><tr><td>Crédit</td><td class="val">la moins chère, propriétaire tout de suite</td><td>endettement auprès de la banque</td></tr><tr><td>LOA</td><td class="val">pas d'endettement bancaire, choix à la fin</td><td>plus chère que le crédit</td></tr><tr><td>LDD</td><td class="val">maintenance incluse, budget fixe</td><td>la plus chère, jamais propriétaire</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 18</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Conseiller le financement à Claire Moreau</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Claire Moreau t'explique : <em>« Je ne veux pas toucher à ma trésorerie, je ne veux pas de nouvel emprunt, mais dans quatre ans j'aimerais que le matériel soit à nous. »</em></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Quelle formule de l'exercice précédent recommandes-tu ? Justifie avec ses trois contraintes.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Présente ta recommandation à l'oral en 2 minutes à ton binôme, qui joue la cliente et pose une objection sur le prix.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quels modes de règlement et de financement propose l'entreprise de ta fiche descriptive ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <p class="res">La LOA.</p> Pas de sortie de trésorerie importante, pas d'emprunt bancaire, et la cliente devient propriétaire au bout de 48 mois en levant l'option.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Réponse à l'objection : la LOA coûte 651,60 € de plus que le crédit (34 620 – 33 968,40), mais elle évite l'endettement et laisse le choix à la fin du contrat.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Proposer une solution de financement adaptée fait partie du conseil et de la prescription évalués en situation 2 (compétence C1.2).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 6 -->
+<div class="bloc-titre" id="bilan" style="margin-top:40px">
+  <span class="icone">📊</span>
+  <h2><small>Séance 6</small>Bloc 6 – Lire le bilan du client</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Risque client = risque que le client professionnel ne paie pas ses factures à l'échéance. Une part importante des défaillances d'entreprises est due à des impayés.</code>
+  <code>Bilan = photographie du patrimoine de l'entreprise en fin d'exercice. Actif = ce qu'elle possède · passif = ce qu'elle doit et les ressources qui la financent. Total actif = total passif.</code>
+  <code>Actif immobilisé = biens durables (logiciels, bâtiments, machines, véhicules, participations) · actif circulant = stocks, créances clients, disponibilités (caisse, banque).</code>
+  <code>Capitaux propres = capital apporté par les associés + réserves (bénéfices conservés) + résultat de l'exercice · dettes = emprunts bancaires, dettes fournisseurs, dettes fiscales et sociales.</code>
+  <code>Bilan fonctionnel = le bilan reclassé selon la fonction des postes : emplois stables / ressources stables (capitaux propres + dettes financières à long terme) · actif circulant / dettes circulantes · trésorerie active (disponibilités) / trésorerie passive (découverts bancaires).</code>
+  <code>Où trouver les comptes ? La plupart des sociétés déposent leurs comptes au greffe du tribunal de commerce : consultables sur infogreffe.fr et societe.com. Certaines petites entreprises peuvent demander qu'ils restent confidentiels.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 19</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Actif ou passif ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Avant d'accepter la commande de Karim Duval, Julie Caron te demande d'analyser son garage. Premier défi : ranger 8 éléments dans le bon tiroir, en <strong>3 minutes</strong>.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Élément du garage Duval Auto</th></tr></thead><tbody><tr><td>1</td><td>La dépanneuse</td></tr><tr><td>2</td><td>Le logiciel de diagnostic électronique</td></tr><tr><td>3</td><td>Les pièces détachées en stock</td></tr><tr><td>4</td><td>Les factures des clients pas encore payées</td></tr><tr><td>5</td><td>L'argent sur le compte bancaire</td></tr><tr><td>6</td><td>Le capital apporté par Karim Duval à la création</td></tr><tr><td>7</td><td>L'emprunt sur 7 ans pour agrandir l'atelier</td></tr><tr><td>8</td><td>Les factures des fournisseurs pas encore payées</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Classe chaque élément : actif immobilisé, actif circulant, capitaux propres ou dettes.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> à l'actif, ce que le garage possède · au passif, d'où vient l'argent.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Actif immobilisé : 1 (corporel), 2 (incorporel) · actif circulant : 3 (stocks), 4 (créances), 5 (disponibilités).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Capitaux propres : 6 · dettes : 7 (dette financière), 8 (dette fournisseurs).</div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 20</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Lire le bilan du garage Duval Auto</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Voici le bilan comptable simplifié du garage au 31 décembre 2025, en milliers d'euros (k€). Les immobilisations sont données en valeur nette.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Actif</th><th>k€</th><th>Passif</th><th>k€</th></tr></thead><tbody><tr><td>Immobilisations incorporelles</td><td>20</td><td>Capital</td><td>40</td></tr><tr><td>Immobilisations corporelles</td><td>150</td><td>Réserves</td><td>15</td></tr><tr><td>Immobilisations financières</td><td>10</td><td>Résultat de l'exercice</td><td>5</td></tr><tr><td>Stocks</td><td>70</td><td>Emprunts et dettes bancaires (dont découvert : 60)</td><td>150</td></tr><tr><td>Créances clients</td><td>50</td><td>Dettes fournisseurs</td><td>75</td></tr><tr><td>Disponibilités</td><td>5</td><td>Dettes fiscales et sociales</td><td>20</td></tr><tr><td><strong>Total actif</strong></td><td><strong>?</strong></td><td><strong>Total passif</strong></td><td><strong>?</strong></td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule le total de l'actif et du passif. Vérifie l'égalité.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule les capitaux propres et le total des dettes.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Relève deux éléments qui t'inquiètent pour la solvabilité du garage.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>Actif = 20 + 150 + 10 + 70 + 50 + 5 = 305 k€</code><code>Passif = 40 + 15 + 5 + 150 + 75 + 20 = 305 k€</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>Capitaux propres = 40 + 15 + 5 = 60 k€</code><code>Dettes = 150 + 75 + 20 = 245 k€</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Seulement 5 k€ de disponibilités face à un découvert de 60 k€ · des dettes 4 fois plus élevées que les capitaux propres.</p><p class="conclu">Le résultat est faible (5 k€) : le garage dégage peu de bénéfice pour rembourser.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 21</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Construire le bilan fonctionnel</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">À partir du bilan de l'exercice précédent, reclasse les postes du garage Duval Auto. Simplification : les immobilisations nettes sont les emplois stables, il n'y a pas d'amortissements à réintégrer. Le découvert bancaire de <strong>60 k€</strong> est de la trésorerie passive, le reste des emprunts (90 k€) est à long terme.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule les emplois stables, l'actif circulant et la trésorerie active.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule les ressources stables, les dettes circulantes et la trésorerie passive.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Présente le bilan fonctionnel dans un tableau sur ton ordinateur et vérifie l'égalité des totaux.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <code>Emplois stables = 20 + 150 + 10 = 180 k€ · actif circulant = 70 + 50 = 120 k€ · trésorerie active = 5 k€</code></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>Ressources stables = 60 + 90 = 150 k€ · dettes circulantes = 75 + 20 = 95 k€ · trésorerie passive = 60 k€</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>Emplois</th><th>k€</th><th>Ressources</th><th>k€</th></tr></thead><tbody><tr><td>Emplois stables</td><td class="val">180</td><td>Ressources stables</td><td class="val">150</td></tr><tr><td>Actif circulant</td><td class="val">120</td><td>Dettes circulantes</td><td class="val">95</td></tr><tr><td>Trésorerie active</td><td class="val">5</td><td>Trésorerie passive</td><td class="val">60</td></tr><tr><td>Total</td><td class="val">305</td><td>Total</td><td class="val">305</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 22</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Trouver les comptes de ton client</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Dans ta fiche descriptive E5, tu dois présenter la démarche de ton entreprise en matière de risque client et l'appliquer à ta situation.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Cherche sur societe.com ou infogreffe.fr les informations publiques de ton client ou prospect : forme juridique, date de création, effectif, chiffre d'affaires, résultat.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Si ses comptes ne sont pas publiés, note les autres sources possibles dans ton entreprise.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Présente en 1 minute à ton binôme : <em>« voici ce que je sais de la santé financière de mon client »</em>.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Attendus : des chiffres datés (année du dernier bilan publié), une source citée.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Autres sources : historique de paiement dans le CRM, avis du service comptable, ancienneté de la relation, informations du terrain.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Ces éléments nourrissent la partie « identification et évaluation du risque affaire et du risque client » de la fiche descriptive.</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 7 -->
+<div class="bloc-titre" id="risque" style="margin-top:40px">
+  <span class="icone">🛡️</span>
+  <h2><small>Séance 7</small>Bloc 7 – Mesurer et couvrir le risque client</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>FRNG (fonds de roulement net global) = ressources stables – emplois stables. Négatif : les biens durables ne sont pas financés par des ressources durables, risque d'insolvabilité.</code>
+  <code>BFR (besoin en fonds de roulement) = actif circulant – dettes circulantes. Montant à financer à cause du décalage entre dépenses et encaissements. Souvent positif · négatif quand les clients paient comptant (hôtellerie, grande distribution).</code>
+  <code>TN (trésorerie nette) = trésorerie active – trésorerie passive = FRNG – BFR. Négative : l'entreprise vit grâce au découvert bancaire.</code>
+  <code>Indépendance financière = capitaux propres / ressources stables. Inférieur à 0,5 : l'entreprise dépend de ses emprunts et aura du mal à emprunter encore.</code>
+  <code>Liquidité de l'actif = (actif circulant + trésorerie active) / (dettes circulantes + trésorerie passive). Inférieur à 1 : l'entreprise ne pourrait pas payer ses dettes à court terme si on les lui réclamait.</code>
+  <code>Couvrir le risque : acompte à la commande · paiement comptant · clause de réserve de propriété · plafond d'encours (montant maximum de factures impayées accepté) · assurance-crédit (un assureur indemnise les impayés contre une prime) · affacturage (une société rachète les factures et encaisse à la place du vendeur, contre une commission).</code>
+  <code>Risque affaire = ce que l'affaire peut rapporter ou coûter : valeur et potentiel d'achat du client, image, investissement technique et commercial nécessaire, contraintes techniques ou légales qui augmentent les coûts.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 23</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Bon signe ou mauvais signe ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Julie Caron résume des analyses de clients. Pour chaque phrase, lève la main droite si c'est un bon signe, la main gauche si c'est un mauvais signe.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Le FRNG est négatif.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Le ratio d'indépendance financière vaut 0,64.</p></div>
+      <div class="question"><span class="q-num">3</span><p>La trésorerie nette est de – 55 k€.</p></div>
+      <div class="question"><span class="q-num">4</span><p>Le ratio de liquidité de l'actif vaut 1,25.</p></div>
+      <div class="question"><span class="q-num">5</span><p>Un hôtel a un BFR négatif.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Mauvais signe : les immobilisations sont en partie financées par des dettes à court terme.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Bon signe (supérieur à 0,5) · 3. Mauvais signe : l'entreprise vit sur son découvert · 4. Bon signe (supérieur à 1).</div>
+      <div class="corr-etape"><span class="c-num">3</span> 5. Plutôt bon signe : ses clients paient comptant et elle encaisse avant de payer ses fournisseurs.</div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 24</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Comparer le garage et l'hôtel</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Tu disposes des bilans fonctionnels des deux clients, en k€. Le garage reprend les données de la séance 6.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Poste</th><th>Garage Duval Auto</th><th>Hôtel Le Grand Large</th></tr></thead><tbody><tr><td>Emplois stables</td><td>180</td><td>1 200</td></tr><tr><td>Actif circulant</td><td>120</td><td>100</td></tr><tr><td>Trésorerie active</td><td>5</td><td>150</td></tr><tr><td>Capitaux propres</td><td>60</td><td>800</td></tr><tr><td>Dettes financières à long terme</td><td>90</td><td>450</td></tr><tr><td>Dettes circulantes</td><td>95</td><td>200</td></tr><tr><td>Trésorerie passive</td><td>60</td><td>0</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Calcule pour chaque client : ressources stables, FRNG, BFR, TN. Vérifie que TN = FRNG – BFR.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Calcule les deux ratios (arrondi à 0,01).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Quel client présente un risque élevé ? Justifie en deux phrases.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> ressources stables = capitaux propres + dettes financières à long terme.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> <div class="table-wrap"><table class="tableau-corr"><thead><tr><th>Indicateur</th><th>Garage</th><th>Hôtel</th></tr></thead><tbody><tr><td>Ressources stables</td><td class="val">60 + 90 = 150</td><td class="val">800 + 450 = 1 250</td></tr><tr><td>FRNG</td><td class="val">150 – 180 = – 30</td><td class="val">1 250 – 1 200 = 50</td></tr><tr><td>BFR</td><td class="val">120 – 95 = 25</td><td class="val">100 – 200 = – 100</td></tr><tr><td>TN</td><td class="val">5 – 60 = – 55</td><td class="val">150 – 0 = 150</td></tr><tr><td>Contrôle FRNG – BFR</td><td class="val">– 30 – 25 = – 55</td><td class="val">50 – (– 100) = 150</td></tr></tbody></table></div></div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>Indépendance : garage = 60 / 150 = 0,40 · hôtel = 800 / 1 250 = 0,64</code><code>Liquidité : garage = (120 + 5) / (95 + 60) = 0,81 · hôtel = (100 + 150) / (200 + 0) = 1,25</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Le garage Duval Auto présente un risque élevé.</p><p class="conclu">FRNG et trésorerie négatifs, dépendance aux emprunts (0,40) et liquidité inférieure à 1 : il pourrait ne pas payer à l'échéance. L'hôtel est solide sur tous les indicateurs.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 25</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Choisir la bonne protection</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Antoine Leroy te demande une proposition pour chaque client. Commande du garage : <strong>9 200 € HT</strong> (1 PAC16 + installation). Commande de la clinique : 8 climatiseurs, client depuis 2023, paie toujours à 45 jours fin de mois, mais a eu un incident technique l'an dernier.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Propose deux protections adaptées au garage Duval Auto. Justifie.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Faut-il les mêmes protections pour la clinique ? Pourquoi ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Identifie un élément de risque affaire pour la clinique.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Exemple : acompte de 30 % à la commande (2 760 € HT) et clause de réserve de propriété, ou paiement comptant. L'assurance-crédit peut aussi refuser de couvrir un client aussi fragile.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Non : la clinique a un bon historique de paiement. Des protections trop fortes risqueraient de dégrader la relation. Un plafond d'encours suffit.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">L'incident technique passé : une nouvelle panne nuirait à l'image de THERMIX et coûterait des interventions gratuites.</p><p class="conclu">À l'oral E5, on attend le risque client (payer) et le risque affaire (rentabilité, image, contraintes) : critère « le risque client/affaire est pris en compte ».</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 26</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Négocier les conditions avec Karim Duval</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Jeu de rôle en binôme, <strong>4 minutes</strong> chrono, puis on inverse. Karim Duval veut sa PAC, mais demande : <em>« Je vous paie à 90 jours, et pas d'acompte, j'ai déjà assez de frais. »</em> Ton objectif : acompte de 30 % et solde à 30 jours · objectif de repli : acompte de 20 % et solde à 45 jours fin de mois · jamais au-delà des délais légaux.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Prépare en 3 minutes trois arguments pour faire accepter l'acompte sans vexer le client.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Joue la négociation. Le binôme note l'objectif atteint (haut, repli, aucun).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Rédige en 3 lignes la note de risque client à enregistrer dans le CRM.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> ne parle pas de ses difficultés financières : parle des règles de l'entreprise et des solutions (LOA, échelonnement légal).</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Exemples : l'acompte bloque le matériel et la date de pose · c'est la règle des CGV pour tous les clients · la loi interdit 90 jours, mais une LOA étale le coût sur 4 ans.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Attendus : écoute et reformulation, aucune promesse illégale, recherche d'un accord gagnant-gagnant.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Exemple : « FRNG et TN négatifs, liquidité 0,81. Acompte 30 % obtenu, solde à 30 jours, réserve de propriété. Surveiller l'échéance. »</p><p class="conclu">Le risque client se traduit en objectifs de négociation et en conditions de vente : c'est ce que la commission vérifie (compétence C1.3).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 8 -->
+<div class="bloc-titre" id="suivi" style="margin-top:40px">
+  <span class="icone">📬</span>
+  <h2><small>Séance 8</small>Bloc 8 – Facturer et suivre la relation</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Après la commande, le commercial s'assure de la livraison dans les délais, de la facturation et de la satisfaction du client.</code>
+  <code>Facture = note détaillée des produits ou prestations vendus. Mentions : numéro unique et date · identité du vendeur (dénomination, adresse, SIREN ou SIRET, RCS, n° de TVA intracommunautaire) · identité de l'acheteur · date de la vente ou de la prestation · désignation, quantité, prix unitaire HT · taux et montant de TVA · réductions · totaux HT et TTC · date d'échéance, conditions d'escompte, taux des pénalités de retard et indemnité forfaitaire de 40 €.</code>
+  <code>Maintenir une relation durable : connaître son client (CRM, données) · l'informer (rendez-vous de suivi, newsletter, webinaires) · le récompenser (cadeaux, invitations à des événements, remises, offres) · l'impliquer (parrainage, enquêtes de satisfaction, suggestions).</code>
+  <code>Suivi d'une affaire = mail de suivi après l'entretien · mise à jour du CRM · contrôle de la livraison et de l'installation · mesure de la satisfaction · relance.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 27</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Connaître, informer, récompenser ou impliquer ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">THERMIX veut fidéliser l'hôtel Le Grand Large après l'installation. Voici les actions envisagées.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Action</th></tr></thead><tbody><tr><td>1</td><td>Enregistrer dans le CRM la date de pose et les numéros de série des PAC</td></tr><tr><td>2</td><td>Envoyer la newsletter trimestrielle sur les économies d'énergie</td></tr><tr><td>3</td><td>Inviter Claire Moreau à l'inauguration du nouveau showroom</td></tr><tr><td>4</td><td>Envoyer une enquête de satisfaction un mois après la pose</td></tr><tr><td>5</td><td>Offrir 10 % sur le contrat de maintenance de la 2e année</td></tr><tr><td>6</td><td>Proposer un bon d'achat si l'hôtel recommande THERMIX à un autre hôtelier</td></tr><tr><td>7</td><td>Inviter Hugo Lambert à un webinaire sur le pilotage à distance</td></tr><tr><td>8</td><td>Analyser l'historique des commandes pour anticiper le renouvellement</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Classe chaque action selon son objectif : connaître, informer, récompenser, impliquer.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Connaître : 1, 8 · informer : 2, 7 · récompenser : 3, 5 · impliquer : 4, 6 (système de recommandation ou parrainage).</div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 28</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Trouve les erreurs de la facture</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Karim Duval a signé la commande. Un intérimaire a préparé la facture. Elle contient <strong>5 erreurs ou oublis</strong>. Défi : le premier binôme qui les trouve toutes gagne.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Zone</th><th>Contenu de la facture</th></tr></thead><tbody><tr><td>En-tête</td><td>THERMIX SAS, 12 rue des Forges, 35000 Rennes</td></tr><tr><td>N° et date</td><td>Facture n° : (vide) · date : 2 avril 2026</td></tr><tr><td>Client</td><td>Garage Duval Auto, SARL, 8 avenue de Bretagne, 35500 Vitré</td></tr><tr><td>Ligne 1</td><td>PAC16 · pompe à chaleur 16 kW · 1 × 6 800 € HT = 6 800 €</td></tr><tr><td>Ligne 2</td><td>INST · forfait installation · 1 × 2 400 € HT = 2 400 €</td></tr><tr><td>Totaux</td><td>Total HT 9 200 € · TVA 10 % : 920 € · total TTC 10 120 €</td></tr><tr><td>Paiement</td><td>Virement · échéance : non précisée</td></tr><tr><td>Pied de page</td><td>Merci de votre confiance !</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Repère les 5 erreurs ou oublis.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Corrige les montants.</p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> vérifie zone par zone avec la liste des mentions de la facture dans le mémo.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> SIREN, RCS et n° de TVA intracommunautaire du vendeur absents · numéro de facture absent · taux de TVA faux (20 % et non 10 %) · date d'échéance absente · taux des pénalités de retard et indemnité forfaitaire de 40 € absents.</div>
+      <div class="corr-etape"><span class="c-num">2</span> <code>TVA = 9 200 × 0,20 = 1 840 €</code><code>Total TTC = 9 200 + 1 840 = 11 040 €</code></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Une facture fausse retarde le paiement et peut créer un litige administratif : relis toujours avant l'envoi.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 29</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Le plan de suivi de ton affaire</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">En situation 2 de l'E5, la commission te demande les actions technico-commerciales que tu envisages après la négociation.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Rédige sur ton ordinateur le mail de suivi que tu enverrais à ton client après l'entretien de ta fiche descriptive (remerciement, récapitulatif, prochaines étapes, contact).</p></div>
+      <div class="question"><span class="q-num">2</span><p>Liste trois actions de suivi datées (livraison, satisfaction, fidélisation).</p></div>
+      <div class="question"><span class="q-num">3</span><p>Présente ton plan en 1 minute 30 à ton binôme, qui chronomètre.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Attendus du mail : objet clair, remerciement, récapitulatif de l'accord ou des points en suspens, documents joints, date de la prochaine étape, signature complète.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemple THERMIX : J+1 mail de suivi et mise à jour du CRM · jour de pose, présence ou appel · J+30 enquête de satisfaction · M+6 visite de maintenance et proposition de service complémentaire.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Critère évalué : « des actions de suivi sont effectuées » (compétence C1.5).</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 9 -->
+<div class="bloc-titre" id="litiges" style="margin-top:40px">
+  <span class="icone">⚖️</span>
+  <h2><small>Séance 9</small>Bloc 9 – Traiter les réclamations et régler les litiges</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Une réclamation signale une dégradation de la relation ou un dysfonctionnement interne. Le commercial intervient au plus tôt, avant qu'elle ne devienne un litige.</code>
+  <code>Types de litiges : qualité (bien ou service défectueux) · prix (écart entre prix facturé et prix négocié) · administratif (document manquant ou mal rédigé : facture, bon de commande, bon de livraison) · date d'événement (facture émise avant la livraison, retard) · matériel manquant (facturé mais pas livré) · double facturation (même livraison facturée deux fois).</code>
+  <code>Méthode : 1. écouter sans interrompre · 2. reformuler pour vérifier le type de litige · 3. trouver une solution (réclamation fondée : reconnaître l'erreur, contacter les services concernés · non fondée : expliquer avec tact) · 4. faire un geste commercial si nécessaire (remplacement, avoir, remise, bon de réduction).</code>
+  <code>Le commercial est le relais du client en interne. On privilégie le règlement à l'amiable : le recours en justice reste exceptionnel, car il nuit à l'image de l'entreprise.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 30</span>
+    <span class="badge badge-1">⬆ décollage</span>
+    <span class="exo-titre-txt">Quel type de litige ?</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Le service client de THERMIX a reçu six réclamations cette semaine.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>N°</th><th>Réclamation</th></tr></thead><tbody><tr><td>1</td><td><em>« Votre visite de maintenance de mars apparaît sur deux factures. »</em></td></tr><tr><td>2</td><td><em>« Deux climatiseurs font un bruit anormal depuis la pose. »</em></td></tr><tr><td>3</td><td><em>« On avait négocié 7 % de remise, la facture n'en indique que 5 %. »</em></td></tr><tr><td>4</td><td><em>« Vous m'avez facturé 12 télécommandes, je n'en ai reçu que 10. »</em></td></tr><tr><td>5</td><td><em>« La facture est datée du 2 avril, la PAC a été posée le 20 avril. »</em></td></tr><tr><td>6</td><td><em>« Je n'ai jamais reçu le bon de livraison signé. »</em></td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Identifie le type de litige de chaque réclamation.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Pour la réclamation 3, quel service interne contactes-tu ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> 1 = double facturation · 2 = qualité · 3 = prix · 4 = matériel manquant · 5 = date d'événement · 6 = administratif.</div>
+      <div class="corr-etape"><span class="c-num">2</span> <p class="res">L'ADV (Julie Caron), après avoir vérifié le bon de commande signé.</p><p class="conclu">Le bon de commande prouve la remise négociée : la formalisation de l'accord protège aussi le client.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 31</span>
+    <span class="badge badge-2">◆ intermédiaire</span>
+    <span class="exo-titre-txt">Analyser l'appel de Paul Girard</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Paul Girard, responsable des services techniques de la clinique Saint-Roch, appelle THERMIX. Un collègue lui répond. Lisez le dialogue à deux voix devant la classe.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Qui</th><th>Réplique</th></tr></thead><tbody><tr><td>Paul Girard</td><td><em>« Bonjour, deux des climatiseurs installés en mars font un bruit… »</em></td></tr><tr><td>Collègue</td><td><em>« Ah, encore le bruit ! Ce sont sûrement vos équipes qui ont touché aux réglages. »</em></td></tr><tr><td>Paul Girard</td><td><em>« Personne n'y a touché. Le bruit gêne les patients la nuit. »</em></td></tr><tr><td>Collègue</td><td><em>« Écoutez, l'installation, ce n'est pas mon service. »</em></td></tr><tr><td>Paul Girard</td><td><em>« Alors je fais quoi ? »</em></td></tr><tr><td>Collègue</td><td><em>« Je vous promets qu'un technicien passe demain matin. Au revoir. »</em> (sans vérifier le planning)</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Relève quatre erreurs du collègue, en t'appuyant sur la méthode du mémo.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Rédige la reformulation que tu aurais faite.</p></div>
+      <div class="question"><span class="q-num">3</span><p>La réclamation est fondée. Propose une solution et un geste commercial.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Il interrompt le client · il accuse le client sans vérifier · il se défausse (« pas mon service ») au lieu d'être le relais interne · il promet sans vérifier le planning et clôt l'appel sans récapitulatif.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemple : <em>« Si je comprends bien, deux climatiseurs posés en mars font un bruit anormal qui gêne les patients la nuit, et personne n'a modifié les réglages. C'est bien cela ? »</em></div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="res">Solution : vérifier le planning, envoyer un technicien sous 24 h (contrat de maintenance), remplacer les appareils si le défaut est confirmé. Geste : une visite de maintenance offerte ou un avoir.</p><p class="conclu">Traiter vite et bien une réclamation fidélise souvent davantage que l'absence de problème.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 32</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Jeu de rôle : régler un litige</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Trio : commercial(e) THERMIX, Léa Fontaine (acheteuse de la clinique), observateur(trice). <strong>5 minutes</strong> chrono, puis rotation. La cliente est mécontente : la visite de maintenance de mars a été facturée deux fois (480 € HT chacune) et la relance de paiement est arrivée avant la date d'échéance.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Commercial(e) : applique les 4 étapes de la méthode et propose une solution concrète.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Observateur(trice) : note les étapes respectées et la phrase la plus efficace.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Un litige est-il possible dans ta situation E5 ? Prépare ta réponse si la commission t'interroge sur ce point.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Attendus : écoute sans interrompre · reformulation des deux problèmes (double facturation, relance prématurée) · reconnaissance de l'erreur · solution : avoir de 480 € HT, annulation de la relance, contact de l'ADV · geste : excuses écrites et, si besoin, petite remise sur la prochaine visite.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Le commercial confirme par mail les solutions et le délai, puis note le litige dans le CRM.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Anticiper les litiges (délais, qualité, paiement) fait partie du risque affaire et du suivi : la commission apprécie un candidat qui les a prévus.</p></div>
+    </div>
+  </div>
+</details>
+<hr class="section-sep">
+
+<!-- BLOC 10 -->
+<div class="bloc-titre" id="examen" style="margin-top:40px">
+  <span class="icone">🎓</span>
+  <h2><small>Séance 10</small>Bloc 10 – Entraînement à l'épreuve E5</h2>
+</div>
+<div class="memo">
+  <div class="memo-titre">🗂 mémo</div>
+  <code>Épreuve E5 – conception et négociation de solutions technico-commerciales (anciennement E4).</code>
+  <code>Situation 1 : présentation orale de la préparation d'un entretien (20 min au maximum) + entretien avec la commission (10 min au maximum). Compétences C1.1 et C1.3.</code>
+  <code>Situation 2 : négociation simulée à partir de la situation modifiée (15 à 20 min) + entretien (10 min au maximum) sur la valeur ajoutée apportée et les actions de suivi. Compétences C1.2, C1.4 et C1.5.</code>
+  <code>Changement de paramètres possible : acteurs (nouvel interlocuteur, changement de fonction) · contexte commercial (client demandeur ou non, changement de stratégie du client, offre de prix non validée…) · contexte technique · contexte concurrentiel.</code>
+</div>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 33</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Sujet complet : présenter le risque du dossier Duval</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Tu présentes à la commission la préparation de ton entretien avec Karim Duval (situation 1). Utilise les données des séances 4 à 7.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Présente en 5 minutes : THERMIX et son offre · le garage Duval Auto et son besoin · l'analyse du risque client (indicateurs et ratios) · le risque affaire · tes objectifs (haut et repli) et tes outils.</p></div>
+      <div class="question"><span class="q-num">2</span><p>La classe évalue avec les critères : contexte et attentes identifiés · risque client/affaire pris en compte · objectifs définis et adaptés · outils de négociation préparés.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Plan attendu : 1. THERMIX (PME, PAC et climatisation pour professionnels) · 2. garage, TPE de Vitré, besoin de chauffage de l'atelier, gérant décideur · 3. FRNG – 30 k€, BFR 25 k€, TN – 55 k€, indépendance 0,40, liquidité 0,81 · 4. risque affaire : petite commande (9 200 € HT) mais potentiel de recommandation locale · 5. objectifs : acompte 30 % et solde à 30 jours, repli 20 % et 45 jours fin de mois · 6. outils : argumentaire, simulation de LOA, CGV, réponses aux objections sur l'acompte.</div>
+      <div class="corr-etape"><span class="c-num">2</span> <p class="conclu">La commission attend un lien clair entre l'analyse financière et les objectifs : sans ce lien, le risque client n'est pas « pris en compte ».</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 34</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Les questions de la commission</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Après ta présentation, la commission t'interroge pendant 10 minutes au maximum. Un étudiant joue la commission et pose les questions dans l'ordre de son choix.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Pourquoi ne pas refuser directement un client aussi fragile ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Que se passe-t-il si le garage ne paie pas le solde ?</p></div>
+      <div class="question"><span class="q-num">3</span><p>Pourquoi ne pas accepter 90 jours pour décrocher la vente ?</p></div>
+      <div class="question"><span class="q-num">4</span><p>Ces comptes datent de 2025 : sont-ils encore fiables ?</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Le risque est maîtrisé par l'acompte et la réserve de propriété, et le garage reste un client avec un potentiel de recommandation.</div>
+      <div class="corr-etape"><span class="c-num">2</span> Pénalités de retard et indemnité de 40 €, relance amiable, puis reprise du matériel grâce à la clause de réserve de propriété. Le recours en justice reste exceptionnel.</div>
+      <div class="corr-etape"><span class="c-num">3</span> C'est au-delà du maximum légal de 60 jours, et cela fragiliserait la trésorerie de THERMIX.</div>
+      <div class="corr-etape"><span class="c-num">4</span> <p class="conclu">Réponse honnête : ce sont les derniers comptes publiés, à compléter par l'historique de paiement et les informations récentes du terrain.</p></div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 35</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Changement de paramètre : l'hôtel est racheté</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Situation 2, sur le modèle des sujets de changement de paramètres.</div>
+    <div class="table-wrap"><table class="tableau-donnees"><thead><tr><th>Paramètre</th><th>Situation modifiée</th></tr></thead><tbody><tr><td>Acteurs</td><td>L'hôtel Le Grand Large a été racheté par un groupe hôtelier. Claire Moreau reste directrice, mais la décision revient à <strong>Marc Aubert</strong>, directeur financier du groupe.</td></tr><tr><td>Contexte commercial</td><td>Le groupe impose un paiement à 60 jours date de facture et refuse tout nouvel emprunt.</td></tr><tr><td>Contexte technique</td><td>Aucun changement sur les 2 PAC et le ballon.</td></tr><tr><td>Contexte concurrentiel</td><td>Un concurrent propose une LDD de 60 mois, maintenance incluse.</td></tr><tr><td>Délimitation</td><td>De l'accueil de Marc Aubert à la conclusion sur les conditions de règlement et de financement.</td></tr></tbody></table></div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Que change ce nouvel interlocuteur pour ta stratégie et ton argumentation ?</p></div>
+      <div class="question"><span class="q-num">2</span><p>Fixe un objectif haut et un objectif de repli.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Joue 8 minutes de négociation avec un binôme, puis réponds à la question de la commission : <em>« Quelle valeur ajoutée avez-vous apportée au client ? »</em></p></div>
+    </div>
+    <div class="ordre-grandeur"><strong>Coup de pouce :</strong> un directeur financier raisonne en coût total, en trésorerie et en endettement. Relis la séance 5.</div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Argumentation financière plutôt que technique : coût total, impact sur la trésorerie, absence d'endettement bancaire. Claire Moreau devient une alliée (prescriptrice).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Exemple : objectif haut = LOA sur 48 mois avec contrat de maintenance · repli = vente avec paiement à 60 jours date de facture (délai légal accepté), sans escompte.</div>
+      <div class="corr-etape"><span class="c-num">3</span> Face à la LDD concurrente (37 200 €), la LOA THERMIX coûte 34 620 € et permet de devenir propriétaire. Valeur ajoutée attendue : conseil sur le financement, comparaison chiffrée, respect des contraintes du groupe.</div>
+    </div>
+  </div>
+</details>
+
+<details class="exo-card">
+  <summary class="exo-header">
+    <span class="exo-num">Ex. 36</span>
+    <span class="badge badge-exam">★ examen</span>
+    <span class="exo-titre-txt">Check-list de ta fiche descriptive</span>
+    <span class="chevron">▼</span>
+  </summary>
+  <div class="exo-body">
+    <div class="contexte">Ta fiche descriptive doit être rendue en février. Ce chapitre nourrit surtout la partie risque client et les annexes.</div>
+    <div class="questions">
+      <div class="question"><span class="q-num">1</span><p>Vérifie que ta fiche contient : la démarche de ton entreprise en matière de risque client · son application à ton client · le risque affaire · les conditions de vente et de règlement · les actions de suivi prévues.</p></div>
+      <div class="question"><span class="q-num">2</span><p>Vérifie tes annexes : CGV et tarifs, modèle de devis ou de bon de commande, outils de négociation.</p></div>
+      <div class="question"><span class="q-num">3</span><p>Note sur ton ordinateur les 3 éléments à compléter en priorité et à qui les demander.</p></div>
+    </div>
+    <button class="btn-corrige" onclick="toggleCorr(this)">✅ Voir la correction</button>
+    <div class="correction">
+      <div class="corr-etape"><span class="c-num">1</span> Contenu attendu : description des acteurs · historique de la relation · identification et évaluation du risque affaire et du risque client (démarche de l'entreprise, application, potentiel d'achat, opportunités et risques) · synthèse des informations clés · stratégie de négociation (objectifs et outils).</div>
+      <div class="corr-etape"><span class="c-num">2</span> Annexes indicatives : plan de découverte, argumentaire, fiche de traitement des objections, tarifs et CGV, extraits de base de données, documentations techniques et commerciales.</div>
+      <div class="corr-etape"><span class="c-num">3</span> <p class="conclu">Demande à ton tuteur dès cette semaine les informations qui te manquent (CGV, politique de risque client, conditions de paiement habituelles).</p></div>
+    </div>
+  </div>
+</details>
+</main>
+
+<footer class="site-footer">
+  BTS CCST – Bloc 1, épreuve E5 &nbsp;|&nbsp; Chapitre 11 : conclure la vente et maintenir une relation client durable &nbsp;|&nbsp; 36 exercices progressifs
+</footer>
+
+
+<script>
+function toggleCorr(btn) {
+  const corr = btn.nextElementSibling;
+  const isVisible = corr.classList.contains('visible');
+  corr.classList.toggle('visible', !isVisible);
+  btn.textContent = isVisible ? '✅ Voir la correction' : '🔒 Masquer la correction';
+}
+</script>
+</body>
+</html>
